@@ -15,7 +15,9 @@ export default function ChatPage() {
       if (!pregunta) {
         throw new Error("Este campo no puede estar vacio");
       }
-      const res = await fetch("http://localhost:3000/chat", {
+      const API_URL =
+        process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
+      const res = await fetch(`${API_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

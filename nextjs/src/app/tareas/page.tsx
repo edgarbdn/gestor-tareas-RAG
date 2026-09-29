@@ -46,7 +46,9 @@ export default async function Tareas() {
       {tareas.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-border py-14 text-center text-muted">
           <p className="text-3xl">🌱</p>
-          <p className="mt-2 text-sm">Añade tu primera tarea arriba para empezar.</p>
+          <p className="mt-2 text-sm">
+            Añade tu primera tarea arriba para empezar.
+          </p>
         </div>
       ) : (
         <ul className="flex flex-col gap-2.5">

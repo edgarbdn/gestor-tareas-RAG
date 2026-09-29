@@ -9,7 +9,8 @@ function FormularioTarea() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch("http://localhost:3000/tareas", {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
+    const res = await fetch(`${API_URL}/tareas`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ titulo }),

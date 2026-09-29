@@ -14,7 +14,9 @@ export default function Login() {
   async function handleLogin() {
     setError("");
     try {
-      const res = await fetch("http://localhost:3000/login", {
+      const API_URL =
+        process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
+      const res = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -27,11 +29,15 @@ export default function Login() {
         router.push("/tareas");
         setEstaLogueado(true);
       } else {
-        setError(`Error ${res.status}: ${datos.mensaje ?? "No se pudo iniciar sesión"}`);
+        setError(
+          `Error ${res.status}: ${datos.mensaje ?? "No se pudo iniciar sesión"}`,
+        );
       }
     } catch (err) {
       console.error(err);
-      setError("No se pudo conectar con el servidor (¿está el backend en el puerto 3000?)");
+      setError(
+        "No se pudo conectar con el servidor (¿está el backend en el puerto 3000?)",
+      );
     }
   }
 
