@@ -2,15 +2,34 @@
 
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Header() {
-  const { estaLogueado } = useAuth();
+  const { estaLogueado, setEstaLogueado } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
 
   async function handleLogout(e: React.FormEvent) {
     e.preventDefault();
-    // TODO: tu lógica de cerrar sesión
+
+    try {
+      const API_URL =
+        process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
+      const res = await fetch(`${API_URL}/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+      const datos = await res.json();
+      console.log(res.status, datos);
+
+      if (res.ok) {
+        setEstaLogueado(false);
+        router.push("/login");
+        router.refresh();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   function claseEnlace(ruta: string) {
