@@ -46,9 +46,10 @@ export async function actualizarTarea(
   try {
     const id = Number(req.params.id);
     const completada = Boolean(req.body.completada);
+    const usuarioId = (req as any).usuario.id;
 
     const tarea = await prisma.tarea.update({
-      where: { id: id },
+      where: { id: id, usuarioId: usuarioId },
       data: { completada: completada },
     });
     res.json({
@@ -67,7 +68,8 @@ export async function eliminarTarea(
 ) {
   try {
     const id = Number(req.params.id);
-    await prisma.tarea.delete({ where: { id: id } });
+    const usuarioId = (req as any).usuario.id;
+    await prisma.tarea.delete({ where: { id: id, usuarioId: usuarioId } });
     res.json({ mensaje: "Tarea eliminada" });
   } catch (error) {
     next(error);
