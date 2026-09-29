@@ -34,12 +34,12 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <AuthProvider estaLogueadoInicial={logueado}>
-        <body className="min-h-full flex flex-col" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <AuthProvider estaLogueadoInicial={logueado}>
           <Header />
           {children}
-        </body>
-      </AuthProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }
