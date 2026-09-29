@@ -8,6 +8,11 @@ export default function Header() {
   const { estaLogueado } = useAuth();
   const pathname = usePathname();
 
+  async function handleLogout(e: React.FormEvent) {
+    e.preventDefault();
+    // TODO: tu lógica de cerrar sesión
+  }
+
   function claseEnlace(ruta: string) {
     const activo = pathname === ruta;
     return `rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
@@ -36,6 +41,14 @@ export default function Header() {
               <Link href="/chat" className={claseEnlace("/chat")}>
                 Chat
               </Link>
+              <form onSubmit={handleLogout} className="ml-2">
+                <button
+                  type="submit"
+                  className="rounded-full border border-border px-4 py-1.5 text-sm font-medium text-muted transition-colors hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-500"
+                >
+                  Cerrar sesión
+                </button>
+              </form>
             </>
           ) : (
             <Link

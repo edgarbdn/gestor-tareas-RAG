@@ -8,6 +8,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import chatRouter from "./routes/chat.routes";
 import usuariosRouter from "./routes/usuarios.routes";
+import logoutRouter from "./routes/logout.routes";
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use("/tareas", tareasRouter);
 app.use("/chat", chatRouter);
 app.use("/", authRouter);
 app.use("/usuarios", usuariosRouter);
+app.use("/logout", logoutRouter);
 
 app.use(manejadorErrores);
 
