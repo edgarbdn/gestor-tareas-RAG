@@ -35,16 +35,22 @@ export async function login(req: Request, res: Response, next: NextFunction) {
   try {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ mensaje: "No has completado alguno de los dos campos" });
+    }
+
     const usuario = await prisma.usuario.findUnique({ where: { email } });
 
     if (!usuario) {
-      throw new Error("Credenciales inválidas");
+      return res.status(401).json({ mensaje: "Credenciales inválidas" });
     }
 
     const passwordCorrecta = await bcrypt.compare(password, usuario.password);
 
     if (!passwordCorrecta) {
-      throw new Error("Credenciales inválidas");
+      return res.status(401).json({ mensaje: "Credenciales inválidas" });
     }
 
     const token = jwt.sign(
