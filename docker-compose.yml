@@ -1,0 +1,16 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+
+  frontend:
+    build: ./nextjs
+    ports:
+      - "3001:3001"
+    environment:
+      - API_URL=http://backend:3000
+    depends_on:
+      - backend
