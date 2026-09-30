@@ -12,7 +12,21 @@ export default function AccionesTarea({ id, completada }: Props) {
 
   async function handleToggle(e: React.FormEvent) {
     e.preventDefault();
-    // TODO: tu lógica para marcar / desmarcar la tarea
+    try {
+      const API_URL =
+        process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
+      const res = await fetch(`${API_URL}/tareas/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ completada: !completada }),
+        credentials: "include",
+      });
+      if (res.ok) {
+        router.refresh();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async function handleDelete(e: React.FormEvent) {
