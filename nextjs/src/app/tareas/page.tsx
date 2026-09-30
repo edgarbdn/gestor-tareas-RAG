@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import FormularioTarea from "./FormularioTarea";
+import AccionesTarea from "./AccionesTarea";
 
 //con el redirect de next/navigation hago las redirecciones donde yo quiera
 import { redirect } from "next/navigation";
@@ -82,6 +83,7 @@ export default async function Tareas() {
               >
                 {t.completada ? "Hecha" : "Pendiente"}
               </span>
+              <AccionesTarea id={t.id} completada={t.completada} />
             </li>
           ))}
         </ul>
